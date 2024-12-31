@@ -27,4 +27,16 @@ helm uninstall [RELEASE_NAME]
 helm repo update
 helm upgrade [RELEASE_NAME] opensearch-operator/opensearch-operator
 ```
+----------
 
+AKS usin Terraform code
+ ########## AKS cluster
+
+ I have created Nodepool with Autoscaling enabled which helps to run nodes based on utilisation which helps in cost optimisation
+
+ commands used for terraform:
+
+ terraform init
+ terraform validate
+ terraform plan
+ terraform apply
