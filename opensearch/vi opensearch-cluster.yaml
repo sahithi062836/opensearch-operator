@@ -1,0 +1,60 @@
+apiVersion: opensearch.opster.io/v1
+kind: OpenSearchCluster
+metadata:
+  name: opensearch
+  namespace: monitoring
+spec:
+  bootstrap:
+    resources: {}
+  confMgmt: {}
+  dashboards:
+    enable: true
+    opensearchCredentialsSecret: {}
+    replicas: 1
+    resources:
+      limits:
+        cpu: 200m
+        memory: 512Mi
+      requests:
+        cpu: 200m
+        memory: 512Mi
+    service:
+      type: ClusterIP
+    tls:
+      caSecret: {}
+      enable: true
+      generate: true
+      secret: {}
+    version: 2.3.0
+  general:
+    drainDataNodes: true
+    httpPort: 9200
+    monitoring: {}
+    pluginsList:
+    - repository-s3
+    serviceName: opensearch
+    setVMMaxMapCount: true
+    version: 2.3.0
+  initHelper:
+    resources: {}
+  nodePools:
+  - component: masters
+    diskSize: 100Gi
+    jvm: -Xmx1024M -Xms1024M
+    persistence:
+      pvc:
+        accessModes:
+        - ReadWriteOnce
+        storageClass: default
+    replicas: 2
+    resources:
+      limits:
+        cpu: "1"
+        memory: 4Gi
+      requests:
+        cpu: "1"
+        memory: 4Gi
+    roles:
+    - data
+    - master
+    - cluster_manager
